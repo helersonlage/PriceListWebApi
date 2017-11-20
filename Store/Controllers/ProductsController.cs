@@ -14,6 +14,12 @@ namespace Store.Controllers
     {
         private StoreEntities db = new StoreEntities();
 
+        public ProductsController(StoreEntities context)
+        {
+            this.db = context;
+        }
+       
+
         [ResponseType(typeof(List<Product>))]
         public IHttpActionResult GetProducts()
         {

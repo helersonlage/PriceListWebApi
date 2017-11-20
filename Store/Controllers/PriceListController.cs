@@ -1,21 +1,25 @@
-﻿using System;
+﻿using Common;
+using Ninject;
+using Store.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Store.Models;
-using Store.Common;
 
 namespace Store.Controllers
 {
-    [Authorize]
+  
     public class PriceListController : ApiController
     {
+        private readonly IPriceDiscount pDiscount;
+
+        public PriceListController([Named("Discount")]IPriceDiscount pDiscount)
+        {
+            this.pDiscount = pDiscount;
+        }
+
         private StoreEntities db = new StoreEntities();
 
         // GET: api/PriceList
@@ -31,7 +35,7 @@ namespace Store.Controllers
         {
             List<IPriceList> priceLists = new List<IPriceList>();
             IPriceList itemPriceLst = new PriceList();
-            IPriceDiscount pDiscount = new PriceDiscount();
+          //  IPriceDiscount pDiscount = new PriceRoundDiscount();
 
             foreach (var item in products)
             {
@@ -44,7 +48,7 @@ namespace Store.Controllers
 
                 if (discount != null && discount.DiscountRate > 0)
                 {
-                    itemPriceLst.price = pDiscount.calcDiscount(discount.DiscountRate, item.Price);
+                    itemPriceLst.price = pDiscount.CalcDiscount(discount.DiscountRate, item.Price);
                     itemPriceLst.DiscountRate = discount.DiscountRate;
                 }
                 else
@@ -58,7 +62,6 @@ namespace Store.Controllers
 
             return priceLists;
         }
-
 
         protected override void Dispose(bool disposing)
         {
