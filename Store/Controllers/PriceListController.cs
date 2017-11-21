@@ -15,10 +15,7 @@ namespace Store.Controllers
     {
         private readonly IPriceDiscount pDiscount;
 
-        public PriceListController([Named("Discount")]IPriceDiscount pDiscount)
-        {
-            this.pDiscount = pDiscount;
-        }
+        public PriceListController([Named("Discount")]IPriceDiscount pDiscount) => this.pDiscount = pDiscount;
 
         private StoreEntities db = new StoreEntities();
 

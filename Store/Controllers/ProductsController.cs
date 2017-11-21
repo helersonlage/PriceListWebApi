@@ -14,11 +14,7 @@ namespace Store.Controllers
     {
         private StoreEntities db = new StoreEntities();
 
-        public ProductsController(StoreEntities context)
-        {
-            this.db = context;
-        }
-       
+        public ProductsController(StoreEntities context) => this.db = context;
 
         [ResponseType(typeof(List<Product>))]
         public IHttpActionResult GetProducts()
@@ -119,7 +115,7 @@ namespace Store.Controllers
         [ResponseType(typeof(Product))]
         public IHttpActionResult DeleteProduct(int id)
         {
-            Product product = db.Products.Find(id);
+            Product product = db.Products.Where(a=> a.ID.Equals(id)).FirstOrDefault();
             if (product == null)
             {
                 return NotFound();
