@@ -3,16 +3,15 @@
 
 namespace Store.App_Start
 {
-    using System;
-    using System.Web;
+    using Common;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
-    using Store.Models;
-    using System.Web.Http;
-    using Ninject.Web.WebApi;
-    using Common;
     using Ninject.Web.Common.WebHost;
+    using Ninject.Web.WebApi;
+    using System;
+    using System.Web;
+    using System.Web.Http;
 
     public static class NinjectWebCommon 
     {

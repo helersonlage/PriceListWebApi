@@ -1,0 +1,38 @@
+﻿<html>
+<head>
+</head>
+<body ng-app="myApp">
+    
+    <h2>Price List</h2>
+    <div ng-controller="myCtrl" ng-model="date" ng-init="LoadPrice(date)" id="controler">
+
+        <div>
+            Price List Day:<input type="date" id="datepicker" ng-model="date"  value="{{date}}" ng-change="LoadPrice(date)" >           
+        </div>
+        <div class="table-responsive">
+            <table datatable="ng" cellpadding="8" class="table table-bordered" id="ListPriceTb">
+                <thead>
+                    <tr>
+                        <td><b>#</b></td>
+                        <td><b>Product Name</b></td>
+                        <td><b>Price Full</b> </td>
+                        <td><b>Discount</b></td>
+                        <td><b>Price</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Price in Price">
+                        <td>{{Price.ID}}</td>
+                        <td>{{Price.Name}}</td>
+                        <td>{{Price.PriceFull  | currency : "$"}}</td>
+                        <td>{{Price.DiscountRate | percentage:2}}</td>
+                        <td>{{Price.price  | currency : "$"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="~/Scripts/Views/PriceListView.Js"></script>

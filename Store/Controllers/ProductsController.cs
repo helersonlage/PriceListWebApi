@@ -9,7 +9,7 @@ using System.Web.Http.Description;
 
 namespace Store.Controllers
 {
-    [Authorize]
+    
     public class ProductsController : ApiController
     {
         private StoreEntities db = new StoreEntities();

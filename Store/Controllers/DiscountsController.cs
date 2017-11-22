@@ -12,7 +12,7 @@ using Store.Models;
 
 namespace Store.Controllers
 {
-    [Authorize]
+   
     public class DiscountsController : ApiController
     {
         private StoreEntities db = new StoreEntities();

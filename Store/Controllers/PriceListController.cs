@@ -15,6 +15,11 @@ namespace Store.Controllers
     {
         private readonly IPriceDiscount pDiscount;
 
+        /// <summary>
+        /// This constructor is used for dependency injection.You can call methods with different behaviors.
+        /// [Named("Discount")] =  Call Class PriceDiscount
+        /// [Named("DiscountRound")]=  Call Class PriceRoundDiscount
+        /// </summary>       
         public PriceListController([Named("Discount")]IPriceDiscount pDiscount) => this.pDiscount = pDiscount;
 
         private StoreEntities db = new StoreEntities();
@@ -27,12 +32,10 @@ namespace Store.Controllers
             return Ok(lst);
         }
 
-
         private List<IPriceList> checkDiscount(DateTime date, List<Product> products)
         {
             List<IPriceList> priceLists = new List<IPriceList>();
-            IPriceList itemPriceLst = new PriceList();
-          //  IPriceDiscount pDiscount = new PriceRoundDiscount();
+            IPriceList itemPriceLst = new PriceList();        
 
             foreach (var item in products)
             {
@@ -41,7 +44,7 @@ namespace Store.Controllers
                 itemPriceLst.Name = item.Name;
                 itemPriceLst.PriceFull = item.Price;
 
-                var discount = item.Discounts.Where(p => date >=  p.InitialDate && date <= p.FinalDate).SingleOrDefault();
+                var discount = item.Discounts.Where(p => date >=  p.InitialDate && date <= p.FinalDate).FirstOrDefault();
 
                 if (discount != null && discount.DiscountRate > 0)
                 {
@@ -58,6 +61,11 @@ namespace Store.Controllers
             }
 
             return priceLists;
+        }        
+
+        private bool ProductExists(int id)
+        {
+            return db.Products.Count(e => e.ID == id) > 0;
         }
 
         protected override void Dispose(bool disposing)
@@ -67,11 +75,6 @@ namespace Store.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool ProductExists(int id)
-        {
-            return db.Products.Count(e => e.ID == id) > 0;
         }
     }
 }

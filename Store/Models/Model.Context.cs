@@ -27,5 +27,7 @@ namespace Store.Models
     
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+
+        public System.Data.Entity.DbSet<Store.Models.PriceList> PriceLists { get; set; }
     }
 }

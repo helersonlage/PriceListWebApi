@@ -8,6 +8,8 @@ namespace Store
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -23,6 +25,17 @@ namespace Store
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/base-frameworks.js").Include(
+                      "~/Scripts/jquery-{version}.js",
+                      "~/Scripts/angular.js",
+                      "~/Scripts/angular-resource.js",
+                      "~/Scripts/angular-ui.js",
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/respond.js"));
+
+
+
         }
     }
 }
