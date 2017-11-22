@@ -17,10 +17,10 @@ namespace Store.Controllers
 
         /// <summary>
         /// This constructor is used for dependency injection.You can call methods with different behaviors.
-        /// [Named("Discount")] =  Call Class PriceDiscount
-        /// [Named("DiscountRound")]=  Call Class PriceRoundDiscount
+        /// [Named("Discount")] =  Call Class PriceDiscount - This method use rounding in the decimal places
+        /// [Named("DiscountRound")]=  Call Class PriceRoundDiscount - This method does not use rounding in the decimal places
         /// </summary>       
-        public PriceListController([Named("Discount")]IPriceDiscount pDiscount) => this.pDiscount = pDiscount;
+        public PriceListController([Named("DiscountRound")]IPriceDiscount pDiscount) => this.pDiscount = pDiscount;
 
         private StoreEntities db = new StoreEntities();
 
